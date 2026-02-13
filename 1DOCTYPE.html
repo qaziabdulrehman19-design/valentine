@@ -1,0 +1,109 @@
+document.addEventListener("DOMContentLoaded", () => {
+  // PASSWORD
+  const correctPassword = "marium";
+
+  // HINTS
+  const hints = [
+    "Hint 1 💭: This word is something I think about more than I should.",
+    "Hint 2 🪞: It’s not a thing… but it feels like home.",
+    "Hint 3 ✨: This word makes ordinary days feel special.",
+    "Hint 4 😌: Aaap haste hue bohat cute lag rhi hain!!!!"
+  ];
+  let hintIndex = 1;
+  function showHint() {
+    if(hintIndex<hints.length) {
+      document.getElementById("hint").textContent=hints[hintIndex];
+      hintIndex++;
+    } else {
+      document.getElementById("hint").textContent="No more hints 😌 trust your heart.";
+    }
+  }
+
+  function checkPassword() {
+    const input = document.getElementById("password").value.toLowerCase();
+    if(input===correctPassword){
+      document.getElementById("lockScreen").style.display="none";
+      document.getElementById("valentineScreen").style.display="block";
+    } else {
+      document.getElementById("hint").textContent="Hmm… not quite 😜 think a little deeper.";
+    }
+  }
+
+  // VALENTINE INTERACTION
+  const noBtn = document.getElementById("noBtn");
+  const yesBtn = document.getElementById("yesBtn");
+  const message = document.getElementById("message");
+  const attemptsDisplay = document.getElementById("attempts");
+  const popup = document.getElementById("romanticPopup");
+  const popupText = document.getElementById("popupText");
+
+  const romanticScenes = [
+    "🌸 First stop… zara sochein, a quiet walk together, in the streets of medina, talking about everything and nothing, just us.",
+    "🌅 Then imagine a sunset at makkah in front of kaaba, where time slows down for us.",
+    "☕ We’ll thank ALLAH S.A.W. together for this blessing of having each other as life partners, INSHA ALLAH.",
+    "🙏 After offering namaz e shukrana, your hand in mine, no rush, no noise.",
+    "💖 And finally… This story only continues if you say YES 😌💘"
+  ];
+
+  let noAttempts = 0;
+  const maxAttempts = 5;
+
+  noBtn.addEventListener("mouseover", () => {
+    if(noAttempts>=maxAttempts) return;
+
+    noAttempts++;
+
+    // Rotate + move NO button
+    const x = Math.random()*300-150;
+    const y = Math.random()*200-100;
+    const rotation = Math.random()*720-360;
+    noBtn.style.transform=`translate(${x}px, ${y}px) rotate(${rotation}deg)`;
+
+    // Grow YES button
+    const scale = 1+noAttempts*0.15;
+    yesBtn.style.transform=`translateX(-50%) scale(${scale})`;
+
+    // Show romantic popup with background blur
+    popupText.innerHTML=romanticScenes[noAttempts-1];
+    popup.style.display="flex";
+    document.body.style.filter="blur(3px)";
+
+    setTimeout(()=>{
+      popup.style.display="none";
+      document.body.style.filter="none";
+    },2200);
+
+    // Update attempts text
+    attemptsDisplay.textContent=`No attempts: ${noAttempts} 😌`;
+
+    // Final state
+    if(noAttempts===maxAttempts){
+      setTimeout(()=>{
+        noBtn.style.display="none";
+        message.textContent="I think you already know the answer 😌💖";
+      },2300);
+    }
+  });
+
+  yesBtn.addEventListener("click", () => {
+    document.getElementById("card").innerHTML=`
+      <h1>YAYYYY 💖🥰</h1>
+      <p>Happy Valentine’s Day, My Cuties 💕</p>
+      <p>You just made my day perfect 😌</p>
+    `;
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "❤️";
+      heart.style.left = Math.random()*window.innerWidth+"px";
+      heart.style.bottom = "0px";
+      document.body.appendChild(heart);
+      setTimeout(()=>heart.remove(),4000);
+    },300);
+  });
+
+  // Make these functions globally available
+  window.checkPassword = checkPassword;
+  window.showHint = showHint;
+
+});
