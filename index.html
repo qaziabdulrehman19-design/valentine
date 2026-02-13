@@ -1,250 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Secret Valentine 💕</title>
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #ff758c, #ff7eb3);
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      transition: filter 0.3s ease;
-    }
-
-    .card {
-      background: white;
-      padding: 35px;
-      border-radius: 25px;
-      text-align: center;
-      box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-      width: 340px;
-      animation: pop 0.8s ease;
-    }
-
-    @keyframes pop {
-      from { transform: scale(0.6); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-
-    h1, h2 {
-      color: #ff4d6d;
-    }
-
-    input {
-      padding: 10px;
-      width: 80%;
-      font-size: 16px;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      margin-top: 10px;
-      text-align: center;
-    }
-
-    button {
-      padding: 10px 20px;
-      margin-top: 15px;
-      font-size: 16px;
-      border-radius: 12px;
-      border: none;
-      cursor: pointer;
-      background: #ff4d6d;
-      color: white;
-      transition: 0.2s;
-    }
-
-    button:hover { transform: scale(1.05); }
-
-    .hintBtn { background: #ddd; color: black; }
-
-    .buttons { margin-top: 25px; position: relative; height: 140px; }
-
-    #noBtn {
-      background: #ddd;
-      color: black;
-      position: absolute;
-      left: 20px;
-      top: 0;
-      animation: shake 0.4s infinite alternate;
-    }
-
-    #yesBtn { position: absolute; left: 50%; transform: translateX(-50%); bottom: 0; }
-
-    @keyframes shake { from { transform: rotate(-3deg); } to { transform: rotate(3deg); } }
-
-    .heart {
-      position: absolute;
-      font-size: 20px;
-      animation: float 4s linear infinite;
-    }
-
-    @keyframes float { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(-600px); opacity: 0; } }
-
-    #hint { margin-top: 15px; min-height: 50px; color: #555; font-style: italic; }
-
-    #attempts { font-weight: bold; color: #ff4d6d; margin-top: 5px; }
-
-    #romanticPopup {
-      display:none;
-      position:fixed;
-      top:0; left:0;
-      width:100%; height:100%;
-      background:rgba(255, 120, 150, 0.95);
-      color:white;
-      z-index:9999;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      padding:30px;
-      font-size:22px;
-      font-weight:500;
-      transition: opacity 0.3s ease;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Secret Valentine 💕</title>
+<style>
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    transition: filter 0.3s ease;
+}
+.card {
+    background: white;
+    padding: 35px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+    width: 340px;
+    animation: pop 0.8s ease;
+}
+@keyframes pop {
+    from { transform: scale(0.6); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+h1, h2 { color: #ff4d6d; }
+input {
+    padding: 10px;
+    width: 80%;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+    text-align: center;
+}
+button {
+    padding: 10px 20px;
+    margin-top: 15px;
+    font-size: 16px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    background: #ff4d6d;
+    color: white;
+    transition: 0.2s;
+}
+button:hover { transform: scale(1.05); }
+.hintBtn { background: #ddd; color: black; }
+.buttons { margin-top: 25px; position: relative; height: 140px; }
+#noBtn { background: #ddd; color: black; position: absolute; left: 20px; top: 0; animation: shake 0.4s infinite alternate; }
+#yesBtn { position: absolute; left: 50%; transform: translateX(-50%); bottom: 0; }
+@keyframes shake { from { transform: rotate(-3deg); } to { transform: rotate(3deg); } }
+.heart { position: absolute; font-size: 20px; animation: float 4s linear infinite; }
+@keyframes float { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(-600px); opacity: 0; } }
+#hint { margin-top: 15px; min-height: 50px; color: #555; font-style: italic; }
+#attempts { font-weight: bold; color: #ff4d6d; margin-top: 5px; }
+#romanticPopup {
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(255, 120, 150, 0.95);
+    color:white;
+    z-index:9999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:30px;
+    font-size:22px;
+    font-weight:500;
+    transition: opacity 0.3s ease;
+}
+</style>
 </head>
 <body>
-
 <audio autoplay loop>
-  <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+    <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
 </audio>
 
 <div class="card" id="card">
-
-  <!-- LOCK SCREEN -->
-  <div id="lockScreen">
-    <h1>🔒 Secret Page</h1>
-    <p>This password isn’t written anywhere…<br>but it’s always on my mind 😌</p>
-    <p><b>Clue:</b> 6 letters 💕</p>
-
-    <input type="password" id="password" placeholder="Enter password">
-    <br>
-    <button onclick="checkPassword()">Unlock 💖</button>
-    <br>
-    <button class="hintBtn" onclick="showHint()">Need more hint? 😏</button>
-
-    <p id="hint">Hint 1 💭: This word is something I think about more than I should.</p>
-  </div>
-
-  <!-- VALENTINE SCREEN -->
-  <div id="valentineScreen" style="display:none;">
-    <h1>Miss Marium Aleem 💕</h1>
-    <h2>Will you be my Valentine 😏</h2>
-    <h2>If you’re still thinking why you should be my Valentine… try clicking No 😏</h2>
-
-    <div class="buttons">
-      <button id="yesBtn">Yes 😍</button>
-      <button id="noBtn">No 😒</button>
+    <!-- LOCK SCREEN -->
+    <div id="lockScreen">
+        <h1>🔒 Secret Page</h1>
+        <p>This password isn’t written anywhere…<br>but it’s always on my mind 😌</p>
+        <p><b>Clue:</b> 6 letters 💕</p>
+        <input type="password" id="password" placeholder="Enter password"> <br>
+        <button onclick="checkPassword()">Unlock 💖</button> <br>
+        <button class="hintBtn" onclick="showHint()">Need more hint? 😏</button>
+        <p id="hint">Hint 1 💭: This word is something I think about more than I should.</p>
     </div>
 
-    <p id="message"></p>
-    <p id="attempts">No attempts: 0 😌</p>
-  </div>
-
+    <!-- VALENTINE SCREEN -->
+    <div id="valentineScreen" style="display:none;">
+        <h1>Miss Marium Aleem 💕</h1>
+        <h2>Will you be my Valentine 😏</h2>
+        <h2>If you’re still thinking why you should be my Valentine… try clicking No 😏</h2>
+        <div class="buttons">
+            <button id="yesBtn">Yes 😍</button>
+            <button id="noBtn">No 😒</button>
+        </div>
+        <p id="message"></p>
+        <p id="attempts">No attempts: 0 😌</p>
+    </div>
 </div>
 
 <div id="romanticPopup"><div id="popupText"></div></div>
 
 <script>
-  // PASSWORD
-  const correctPassword = "marium";
+// PASSWORD
+const correctPassword = "marium";
 
-  // HINTS
-  const hints = [
+// HINTS
+const hints = [
     "Hint 1 💭: This word is something I think about more than I should.",
     "Hint 2 🪞: It’s not a thing… but it feels like home.",
     "Hint 3 ✨: This word makes ordinary days feel special.",
     "Hint 4 😌: Aaap haste hue bohat cute lag rhi hain!!!!"
-  ];
-  let hintIndex = 1;
-  function showHint() {
+];
+let hintIndex = 1;
+function showHint() {
     if(hintIndex<hints.length) {
-      document.getElementById("hint").textContent=hints[hintIndex];
-      hintIndex++;
+        document.getElementById("hint").textContent = hints[hintIndex];
+        hintIndex++;
     } else {
-      document.getElementById("hint").textContent="No more hints 😌 trust your heart.";
+        document.getElementById("hint").textContent = "No more hints 😌 trust your heart.";
     }
-  }
+}
 
-  function checkPassword() {
+function checkPassword() {
     const input = document.getElementById("password").value.toLowerCase();
     if(input===correctPassword){
-      document.getElementById("lockScreen").style.display="none";
-      document.getElementById("valentineScreen").style.display="block";
+        document.getElementById("lockScreen").style.display="none";
+        document.getElementById("valentineScreen").style.display="block";
     } else {
-      document.getElementById("hint").textContent="Hmm… not quite 😜 think a little deeper.";
+        document.getElementById("hint").textContent="Hmm… not quite 😜 think a little deeper.";
     }
-  }
+}
 
-  // VALENTINE INTERACTION
-  const noBtn = document.getElementById("noBtn");
-  const yesBtn = document.getElementById("yesBtn");
-  const message = document.getElementById("message");
-  const attemptsDisplay = document.getElementById("attempts");
-  const popup = document.getElementById("romanticPopup");
-  const popupText = document.getElementById("popupText");
+// VALENTINE INTERACTION
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const message = document.getElementById("message");
+const attemptsDisplay = document.getElementById("attempts");
+const popup = document.getElementById("romanticPopup");
+const popupText = document.getElementById("popupText");
 
-  const romanticScenes = [
-    "🌸 First stop… zara sochein, a quiet walk together, in the streets of medina, talking about everything and nothing, just us.",
-    "🌅 Then imagine a sunset at makkah in front of kaaba, where time slows down for us.",
-    "☕ We’ll thank ALLAH S.A.W. together for this blessing of having each other as life partners, INSHA ALLAH.",
-    "🙏 After offering namaz e shukrana, your hand in mine, no rush, no noise.",
+const romanticScenes = [
+    "🌸 First stop…zara sochein, a quiet walk together, in the streets of medina, talking about everything and nothing, just us.",
+    "🌅 Then imagin a sunset at makkah infront of kaaba, where time slows down for us.",
+    "☕ We’ll thanks ALLAH S.A.W. together for this blessings of having each other as life parnters, INSHA ALLAH.",
+    "After Offering namaz e shukrana, your hand in mine, no rush, no noise.",
     "💖 And finally… This story only continues if you say YES 😌💘"
-  ];
+];
 
-  let noAttempts = 0;
-  const maxAttempts = 5;
+let noAttempts = 0;
+const maxAttempts = 5;
 
-  noBtn.addEventListener("mouseover", () => {
+noBtn.addEventListener("mouseover", () => {
     if(noAttempts>=maxAttempts) return;
-
     noAttempts++;
-
-    // Rotate + move NO button
     const x = Math.random()*300-150;
     const y = Math.random()*200-100;
     const rotation = Math.random()*720-360;
-    noBtn.style.transform=`translate(${x}px, ${y}px) rotate(${rotation}deg)`;
-
-    // Grow YES button
+    noBtn.style.transform = `translate(${x}px, ${y}px) rotate(${rotation}deg)`;
     const scale = 1+noAttempts*0.15;
-    yesBtn.style.transform=`translateX(-50%) scale(${scale})`;
-
-    // Show romantic popup with background blur
-    popupText.innerHTML=romanticScenes[noAttempts-1];
+    yesBtn.style.transform = `translateX(-50%) scale(${scale})`;
+    popupText.innerHTML = romanticScenes[noAttempts-1];
     popup.style.display="flex";
     document.body.style.filter="blur(3px)";
-
     setTimeout(()=>{
-      popup.style.display="none";
-      document.body.style.filter="none";
+        popup.style.display="none";
+        document.body.style.filter="none";
     },2200);
-
-    // Update attempts text
-    attemptsDisplay.textContent=`No attempts: ${noAttempts} 😌`;
-
-    // Final state
+    attemptsDisplay.textContent = `No attempts: ${noAttempts} 😌`;
     if(noAttempts===maxAttempts){
-      setTimeout(()=>{
-        noBtn.style.display="none";
-        message.textContent="I think you already know the answer 😌💖";
-      },2300);
+        setTimeout(()=>{
+            noBtn.style.display="none";
+            message.textContent="I think you already know the answer 😌💖";
+        },2300);
     }
-  });
+});
 
-  yesBtn.addEventListener("click", () => {
-    document.getElementById("card").innerHTML=`
-      <h1>YAYYYY 💖🥰</h1>
-      <p>Happy Valentine’s Day, My Cuties 💕</p>
-      <p>You just made my day perfect 😌</p>
+yesBtn.addEventListener("click", () => {
+    document.getElementById("card").innerHTML = `
+        <h1>YAYYYY 💖🥰</h1>
+        <p>Happy Valentine’s Day, My Cuties 💕</p>
+        <p>You just made my day perfect 😌</p>
     `;
     setInterval(createHeart,300);
-  });
+});
 
-  function createHeart(){
+function createHeart(){
     const heart=document.createElement("div");
     heart.className="heart";
     heart.innerHTML="❤️";
@@ -252,8 +204,7 @@
     heart.style.bottom="0px";
     document.body.appendChild(heart);
     setTimeout(()=>heart.remove(),4000);
-  }
+}
 </script>
-
 </body>
 </html>
